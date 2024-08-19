@@ -32,15 +32,22 @@ if ingredients_list:
     ingredients_string=''
 
     for fruit_chosen in ingredients_list:
-        ingredients_string +=fruit_chosen + ' '
-       search_on=pd_df.loc[pd_df['FRUIT_NAME'] == each_fruit, 'SEARCH_ON'].iloc[0]
-        # st.write('The search value for ', each_fruit,' is ', search_on, '.')
-        st.subheader(each_fruit + 'Nutrition Information')
-        fruityvice_response = requests.get("
-https://fruityvice.com/api/fruit/"+
-search_on)
-        # st.text(fruityvice_response.json())
-        fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width = True)
+    ingredients_string += fruit_chosen + ' '
+    
+    # Assuming 'each_fruit' should be 'fruit_chosen'
+    search_on = pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+    
+    # st.write('The search value for ', fruit_chosen, ' is ', search_on, '.')
+    st.subheader(fruit_chosen + ' Nutrition Information')
+    
+    # Correcting the line break and removing unnecessary quotes
+    fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{search_on}")
+    
+    # st.text(fruityvice_response.json()) - Uncomment if you need to inspect the raw JSON response
+    
+    # Assuming the API returns JSON data compatible with a dataframe
+    fv_df = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
+
 
     
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
