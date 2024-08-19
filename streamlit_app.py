@@ -41,7 +41,7 @@ if ingredients_list:
         st.subheader(fruit_chosen + ' Nutrition Information')
         
         # Correcting the line break and removing unnecessary quotes
-        fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{search_on}")
+        fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/"+fruit_chosen)
         
         # st.text(fruityvice_response.json()) - Uncomment if you need to inspect the raw JSON response
         
